@@ -24,9 +24,9 @@
     <main class="flex-1">
         @yield('content')
     </main>
-    <!-- Footer -->
-    <footer class="bg-white text-center text-gray-400 py-4 shadow-inner">
-        &copy; {{ date('Y') }} CoolTech. All Rights Reserved.
-    </footer>
+    <!-- Footer Component -->
+    <x-footer />
+    <!-- Cookie Notice Component -->
+    <x-cookie-notice />
 </body>
 </html>

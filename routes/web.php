@@ -10,6 +10,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\SearchController; // <- Add this
+use App\Http\Controllers\WriterConsoleController; // <- If doing writer's console
 
 // Homepage (Home)
 Route::get('/', function () {
@@ -65,3 +67,14 @@ Route::view('/legal', 'legal')->name('legal');
 
 Route::resource('categories', CategoryController::class);
 Route::resource('tags', TagController::class);
+
+// ----------------- NEW: SEARCH PAGE ROUTES -----------------
+Route::get('/search', [SearchController::class, 'show'])->name('search.show');
+Route::get('/search/article', [SearchController::class, 'searchArticle'])->name('search.article');
+Route::get('/search/category', [SearchController::class, 'searchCategory'])->name('search.category');
+Route::get('/search/tag', [SearchController::class, 'searchTag'])->name('search.tag');
+
+// ----------------- OPTIONAL: WRITER'S CONSOLE -----------------
+Route::get('/writer-console', [WriterConsoleController::class, 'show'])->name('writer.console');
+Route::post('/writer-console/auth', [WriterConsoleController::class, 'auth'])->name('writer.console.auth');
+Route::post('/writer-console/submit', [WriterConsoleController::class, 'submit'])->name('writer.console.submit');

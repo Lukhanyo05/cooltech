@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
 
-class CategoryController extends Controller
+class Controller extends BaseController
 {
-    public function show(Category $category)
-    {
-        $articles = $category->articles()->with('tags')->latest()->paginate(10);
-        return view('categories.show', compact('category', 'articles'));
-    }
+    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

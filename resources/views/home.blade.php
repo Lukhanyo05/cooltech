@@ -8,7 +8,7 @@
         <!-- Hero Text -->
         <div class="w-full md:w-1/2 mb-10 md:mb-0 text-center md:text-left">
             <h1 class="text-5xl font-bold text-blue-700 mb-6">Welcome to CoolTech!</h1>
-            <p class="text-xl text-gray-700 mb-6">Modern PHP/Laravel solutions to boost your business.</p>
+            <p class="text-xl text-gray-700 mb-6">Where tech meets the cool world of invention.</p>
             <a href="{{ url('/contact') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-8 rounded shadow transition duration-300">Get Started</a>
         </div>
         <!-- Hero Image -->
