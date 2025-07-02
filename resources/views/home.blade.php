@@ -13,7 +13,7 @@
         </div>
         <!-- Hero Image -->
         <div class="w-full md:w-1/2 flex justify-center">
-            <img src="{{ asset('images/hero.jpg') }}" alt="Hero" class="rounded-lg shadow-lg max-h-80">
+            <img src="{{ asset('images/logo.png') }}" alt="Hero" class="rounded-lg shadow-lg max-h-80">
         </div>
     </div>
 </section>
