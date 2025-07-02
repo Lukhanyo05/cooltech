@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'About | CoolTech')
+@section('title', 'About - CoolTech')
 
 @section('content')
-<div class="container mx-auto py-20">
-    <h1 class="text-4xl font-bold text-blue-700 mb-6">About CoolTech</h1>
-    <p class="text-lg text-gray-700">CoolTech is a modern Laravel application demo...</p>
+<div class="card">
+    <h1 class="heading-1">About CoolTech</h1>
+    <p class="mb-4 text-gray-600">CoolTech is a modern tech platform for sharing knowledge, thoughts, ideas and sharing of like minds in the world of tech. </p>
 </div>
 @endsection

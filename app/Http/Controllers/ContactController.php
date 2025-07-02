@@ -13,4 +13,18 @@ class ContactController extends Controller
         $contacts = Contact::latest()->paginate(10);
         return view('admin.contacts.index', compact('contacts'));
     }
+
+    // Handle contact form submission
+    public function submit(Request $request)
+    {
+        $validated = $request->validate([
+            'name'    => 'required|max:255',
+            'email'   => 'required|email',
+            'message' => 'required|max:2000',
+        ]);
+
+        Contact::create($validated);
+
+        return redirect('/contact')->with('success', 'Your message has been sent!');
+    }
 }
