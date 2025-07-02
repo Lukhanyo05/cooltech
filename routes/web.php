@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Mail\ContactFormSubmitted;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
 
 // Homepage (Home)
 Route::get('/', function () {
@@ -44,3 +47,21 @@ Route::view('/thank-you', 'thank-you');
 
 // Admin list of contact submissions (requires authentication)
 Route::get('/admin/contacts', [ContactController::class, 'index']);
+
+// Article, Category, Tag routes
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
+Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
+Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
+Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
+Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+
+Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
+Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
+
+// Legal page
+Route::view('/legal', 'legal')->name('legal');
+
+Route::resource('categories', CategoryController::class);
+Route::resource('tags', TagController::class);
