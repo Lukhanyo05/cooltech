@@ -9,6 +9,17 @@ use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
+    // ADD THIS METHOD for home page with latest 5 articles
+    public function home()
+    {
+        $articles = Article::with(['category', 'tags'])
+            ->latest()
+            ->take(5)
+            ->get();
+
+        return view('home', compact('articles'));
+    }
+
     public function index()
     {
         $articles = Article::with('category', 'tags')->latest()->paginate(10);
@@ -36,9 +47,10 @@ class ArticleController extends Controller
         return redirect()->route('articles.index')->with('success', 'Article created!');
     }
 
-    public function show(Article $article)
+    // FIX THIS METHOD - use ID instead of model binding for the required route
+    public function show($id)
     {
-        $article->load('category', 'tags');
+        $article = Article::with(['category', 'tags'])->findOrFail($id);
         return view('articles.show', compact('article'));
     }
 

@@ -1,61 +1,177 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+﻿# CoolTech Blog
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern, responsive blog platform built with Laravel for sharing technology news, reviews, and insights.
 
-## About Laravel
+## 🚀 Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Latest Articles** - Home page displays 5 most recent articles
+- **Article Categories** - Tech News, Software Reviews, Hardware Reviews, Opinion Pieces
+- **Tagging System** - Articles can be tagged with relevant topics
+- **Responsive Design** - Built with Tailwind CSS for all devices
+- **Search Functionality** - Search articles by ID, category, or tag
+- **Professional UI** - Clean, modern interface with navigation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 🛠️ Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Backend**: Laravel 10
+- **Frontend**: Tailwind CSS, Blade Templates
+- **Database**: SQLite (development) / MySQL (production)
+- **Authentication**: Laravel Sanctum (ready for implementation)
 
-## Learning Laravel
+## 📋 Requirements
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP 8.1+
+- Composer
+- SQLite or MySQL
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## 🏃‍♂️ Quick Start
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Installation
 
-## Laravel Sponsors
+1. **Clone the repository**
+   \\\ash
+   git clone <repository-url>
+   cd cooltech
+   \\\
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+2. **Install dependencies**
+   \\\ash
+   composer install
+   \\\
 
-### Premium Partners
+3. **Setup environment**
+   \\\ash
+   cp .env.example .env
+   php artisan key:generate
+   \\\
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+4. **Configure database** (in .env file)
+   \\\env
+   DB_CONNECTION=sqlite
+   DB_DATABASE=/absolute/path/to/database.sqlite
+   \\\
 
-## Contributing
+5. **Create database file**
+   \\\ash
+   touch database/database.sqlite
+   \\\
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+6. **Run migrations and seeders**
+   \\\ash
+   php artisan migrate --seed
+   \\\
 
-## Code of Conduct
+7. **Start development server**
+   \\\ash
+   php artisan serve
+   \\\
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+8. **Visit the application**
+   Open http://localhost:8000 in your browser
 
-## Security Vulnerabilities
+## 🗃️ Database Schema
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+The application uses the following database structure:
 
-## License
+### Tables
+- **articles** - Stores blog articles with title, content, and category
+- **categories** - Article categories (Tech News, Software Reviews, etc.)
+- **tags** - Article tags (AI, Programming, Web Development, etc.)
+- **article_tag** - Many-to-many relationship between articles and tags
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Relationships
+- Articles belong to Categories (one-to-many)
+- Articles belong to many Tags (many-to-many)
+- Categories have many Articles
+- Tags belong to many Articles
+
+See \DATABASE_ERD.md\ for detailed database documentation.
+
+## 🎯 Project Structure
+
+\\\
+cooltech/
+├── app/
+│   ├── Models/
+│   │   ├── Article.php
+│   │   ├── Category.php
+│   │   └── Tag.php
+│   └── Http/Controllers/
+│       └── ArticleController.php
+├── database/
+│   ├── migrations/
+│   └── seeders/
+├── resources/views/
+│   ├── layouts/
+│   │   └── app.blade.php
+│   ├── home.blade.php
+│   ├── articles/
+│   │   └── show.blade.php
+│   └── [other views]
+└── routes/web.php
+\\\
+
+## 📄 Available Routes
+
+- \GET /\ - Home page with latest articles
+- \GET /article/{id}\ - Individual article page
+- \GET /category/{slug}\ - Articles by category
+- \GET /tag/{slug}\ - Articles by tag
+- \GET /search\ - Search page
+- \GET /about\ - About page
+- \GET /contact\ - Contact page
+- \GET /legal\ - Legal page
+
+## 🌟 Key Features Implemented
+
+### For Users
+- Browse latest articles on home page
+- Read full article content
+- Filter articles by category or tag
+- Search functionality
+- Responsive mobile-friendly design
+
+### For Development
+- Proper database relationships
+- Laravel Eloquent models
+- Blade templates with layouts
+- Tailwind CSS styling
+- SQLite database for development
+
+## 🗂️ Sample Data
+
+The database seeder includes:
+- 4 article categories
+- 6 tags
+- 20 sample articles with proper relationships
+
+## 🔧 Development
+
+### Running Tests
+\\\ash
+php artisan test
+\\\
+
+### Clearing Cache
+\\\ash
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+\\\
+
+### Database Reset
+\\\ash
+php artisan migrate:fresh --seed
+\\\
+
+## 📝 License
+
+This project is for educational purposes as part of the HyperionDev Capstone Project.
+
+## 👨‍💻 Developer
+
+Lukhanyo - HyperionDev Student
+
+---
+
+**Built with ❤️ using Laravel and Tailwind CSS**

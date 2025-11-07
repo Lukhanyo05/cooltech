@@ -1,82 +1,62 @@
-<?php
+﻿<?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Product;
-use App\Models\Contact;
-use Illuminate\Http\Request;
-use App\Mail\ContactFormSubmitted;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\SearchController;
-use App\Http\Controllers\WriterConsoleController;
+use App\Http\Controllers\ContactController;
+use App\Models\Contact;
+use Illuminate\Http\Request;
+use App\Mail\ContactFormSubmitted;
+use Illuminate\Support\Facades\Mail;
 
-// Homepage
-Route::get('/', function () {
-    $products = Product::latest()->take(3)->get();
-    return view('home', compact('products'));
+// Simple test route
+Route::get("/test-simple", function() {
+    return "Test route works at " . now();
 });
 
+// Homepage
+Route::get("/", [ArticleController::class, "home"])->name("home");
+
 // About page
-Route::view('/about', 'about');
+Route::view("/about", "about");
 
-// Contact page (GET)
-Route::view('/contact', 'contact');
+// Contact page
+Route::view("/contact", "contact");
 
-// Contact form submission (POST)
-Route::post('/contact', function (Request $request) {
-    // Validate input
+// Contact form submission
+Route::post("/contact", function (Request $request) {
     $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'email' => 'required|email',
-        'message' => 'required|string',
+        "name" => "required|string|max:255",
+        "email" => "required|email",
+        "message" => "required|string",
     ]);
-
-    // Store in database
     $contact = Contact::create($validated);
-
-    // Send email to admin (edit to your admin email)
-    Mail::to('your-admin@email.com')->send(new ContactFormSubmitted($contact));
-
-    // Redirect to thank you page
-    return redirect('/thank-you');
-})->name('contact.submit');
+    Mail::to("admin@cooltech.com")->send(new ContactFormSubmitted($contact));
+    return redirect("/thank-you");
+})->name("contact.submit");
 
 // Thank you page
-Route::view('/thank-you', 'thank-you');
-
-// Admin list of contact submissions (requires authentication in real projects)
-Route::get('/admin/contacts', [ContactController::class, 'index'])->name('admin.contacts.index');
+Route::view("/thank-you", "thank-you");
 
 // Articles
-Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
-Route::get('/articles/create', [ArticleController::class, 'create'])->name('articles.create');
-Route::post('/articles', [ArticleController::class, 'store'])->name('articles.store');
-Route::get('/articles/{article}', [ArticleController::class, 'show'])->name('articles.show');
-Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
-Route::put('/articles/{article}', [ArticleController::class, 'update'])->name('articles.update');
-Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+Route::get("/articles", [ArticleController::class, "index"])->name("articles.index");
+Route::get("/article/{id}", [ArticleController::class, "show"])->name("article.show");
 
-// Categories and Tags (show by id/slug)
-Route::get('/categories/{category}', [CategoryController::class, 'show'])->name('categories.show');
-Route::get('/tags/{tag}', [TagController::class, 'show'])->name('tags.show');
+// Categories and Tags
+Route::get("/category/{slug}", [CategoryController::class, "show"])->name("category.show");
+Route::get("/tag/{slug}", [TagController::class, "show"])->name("tag.show");
 
 // Legal page
-Route::view('/legal', 'legal')->name('legal');
+Route::view("/legal", "legal")->name("legal");
 
-// Resource routes for categories and tags
-Route::resource('categories', CategoryController::class)->except(['show']);
-Route::resource('tags', TagController::class)->except(['show']);
+// Search
+Route::get("/search", [SearchController::class, "index"])->name("search");
+Route::post("/search", [SearchController::class, "search"])->name("search.perform");
 
-// Search routes
-Route::get('/search', [SearchController::class, 'show'])->name('search.show');
-Route::get('/search/article', [SearchController::class, 'searchArticle'])->name('search.article');
-Route::get('/search/category', [SearchController::class, 'searchCategory'])->name('search.category');
-Route::get('/search/tag', [SearchController::class, 'searchTag'])->name('search.tag');
+// Resource routes
+Route::resource("categories", CategoryController::class)->except(["show"]);
+Route::resource("tags", TagController::class)->except(["show"]);
+Route::resource("articles", ArticleController::class)->except(["index", "show"]);
 
-// Writer's Console (optional feature)
-Route::get('/writer-console', [WriterConsoleController::class, 'show'])->name('writer.console');
-Route::post('/writer-console/auth', [WriterConsoleController::class, 'auth'])->name('writer.console.auth');
-Route::post('/writer-console/submit', [WriterConsoleController::class, 'submit'])->name('writer.console.submit');
